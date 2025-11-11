@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Meiriane Araújo - Enfermeira Esteta</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <!-- Snake Stripe -->
+    <div class="scroll-snake">
+      <svg class="snake-path" preserveAspectRatio="none">
+        <path class="snake-stripe" d="" />
+      </svg>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Meiriane Araujo</h1>
+        <p class="hero-subtitle">Enfermeira Esteta</p>
+        <a href="#contato" class="cta-button">Agendar Consulta</a>
+      </div>
+      <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="sobre">
+      <h2 class="section-title">Beleza Natural</h2>
+      <p class="section-subtitle">Especialista em você</p>
+      <div class="about-content">
+        <div class="about-image">
+          <img src="./imagens/perfil.jpg" alt="Meiriane Araujo" />
+        </div>
+        <p class="about-text">
+          Com anos de experiência e dedicação, transformo sonhos em realidade
+          através de procedimentos estéticos seguros e personalizados. Cada
+          cliente é único e merece um atendimento que realce sua beleza natural
+          com excelência e cuidado.
+        </p>
+        <p class="about-text">
+          Tecnologia de ponta, protocolos exclusivos e resultados que falam por
+          si. Sua jornada para a melhor versão de você começa aqui.
+        </p>
+      </div>
+    </section>
+
+    <!-- Procedimentos Section -->
+    <section class="procedimentos" id="procedimentos">
+      <h2 class="section-title">Procedimentos</h2>
+      <p class="section-subtitle">Exclusivos para você</p>
+      <div class="proc-container">
+        <!-- Card 01 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">01</span>
+              <div class="proc-header">
+                <div class="proc-icon"><i class="fas fa-eye"></i></div>
+                <h3 class="proc-name">Blefaroplastia com Jato de Plasma</h3>
+              </div>
+              <p class="proc-desc">
+                Rejuvenescimento da região dos olhos sem cirurgia
+              </p>
+            </div>
+            <div class="proc-card-back">
+              <img
+                src="./imagens/blefaro.jpg"
+                alt="Blefaroplastia com Jato de Plasma"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 02 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">02</span>
+              <div class="proc-header">
+                <div class="proc-icon"><i class="fas fa-gem"></i></div>
+                <h3 class="proc-name">Lobuloplastia Não Cirúrgica</h3>
+              </div>
+              <p class="proc-desc">
+                Correção e harmonização do lóbulo da orelha
+              </p>
+            </div>
+            <div class="proc-card-back">
+              <img
+                src="./imagens/lobuloplastia1.jpg"
+                alt="Lobuloplastia Não Cirúrgica"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 03 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">03</span>
+              <div class="proc-header">
+                <div class="proc-icon">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h3 class="proc-name">Remoção de Sinais</h3>
+              </div>
+              <p class="proc-desc">Tecnologia de plasma para remoção segura</p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/sinal1.jpg" alt="Remoção de Sinais" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 04 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">04</span>
+              <div class="proc-header">
+                <div class="proc-icon"><i class="fas fa-spa"></i></div>
+                <h3 class="proc-name">Terapia Capilar</h3>
+              </div>
+              <p class="proc-desc">Revitalização e fortalecimento dos fios</p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/capilar1.jpg" alt="Terapia Capilar" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 05 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">05</span>
+              <div class="proc-header">
+                <div class="proc-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    width="44"
+                    height="44"
+                  >
+                    <rect x="8" y="2" width="8" height="3" rx="1" />
+                    <rect x="9" y="5" width="6" height="8" rx="0.5" />
+                    <rect x="7" y="13" width="10" height="2" rx="0.5" />
+                    <line
+                      x1="8"
+                      y1="15"
+                      x2="8"
+                      y2="18"
+                      stroke="currentColor"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                    />
+                    <line
+                      x1="10"
+                      y1="15"
+                      x2="10"
+                      y2="19"
+                      stroke="currentColor"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                    />
+                    <line
+                      x1="12"
+                      y1="15"
+                      x2="12"
+                      y2="18.5"
+                      stroke="currentColor"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                    />
+                    <line
+                      x1="14"
+                      y1="15"
+                      x2="14"
+                      y2="19"
+                      stroke="currentColor"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                    />
+                    <line
+                      x1="16"
+                      y1="15"
+                      x2="16"
+                      y2="18"
+                      stroke="currentColor"
+                      stroke-width="0.8"
+                      stroke-linecap="round"
+                    />
+                    <line
+                      x1="9"
+                      y1="7"
+                      x2="15"
+                      y2="7"
+                      stroke="currentColor"
+                      stroke-width="0.3"
+                      opacity="0.5"
+                    />
+                    <line
+                      x1="9"
+                      y1="9"
+                      x2="15"
+                      y2="9"
+                      stroke="currentColor"
+                      stroke-width="0.3"
+                      opacity="0.5"
+                    />
+                    <line
+                      x1="9"
+                      y1="11"
+                      x2="15"
+                      y2="11"
+                      stroke="currentColor"
+                      stroke-width="0.3"
+                      opacity="0.5"
+                    />
+                  </svg>
+                </div>
+                <h3 class="proc-name">Microagulhamento</h3>
+              </div>
+              <p class="proc-desc">
+                Renovação celular e rejuvenescimento da pele
+              </p>
+            </div>
+            <div class="proc-card-back">
+              <img
+                src="./imagens/microagulhamento.jpg"
+                alt="Microagulhamento"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 06 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">06</span>
+              <div class="proc-header">
+                <div class="proc-icon"><i class="fas fa-hands"></i></div>
+                <h3 class="proc-name">Harmonização das Mãos</h3>
+              </div>
+              <p class="proc-desc">Rejuvenescimento e revitalização das mãos</p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/maos.jpg" alt="Harmonização das Mãos" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 07 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">07</span>
+              <div class="proc-header">
+                <div class="proc-icon"><i class="fas fa-syringe"></i></div>
+                <h3 class="proc-name">Botox</h3>
+              </div>
+              <p class="proc-desc">Suavização de linhas de expressão</p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/botox.jpg" alt="Botox" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 08 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">08</span>
+              <div class="proc-header">
+                <div class="proc-icon">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/45/45679.png"
+                    alt="Preenchimento Labial"
+                    width="34"
+                    height="34"
+                  />
+                </div>
+                <h3 class="proc-name">Preenchimento Labial</h3>
+              </div>
+              <p class="proc-desc">Volume e definição natural dos lábios</p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/labial1.jpg" alt="Preenchimento Labial" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 09 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">09</span>
+              <div class="proc-header">
+                <div class="proc-icon"><i class="fas fa-fire"></i></div>
+                <h3 class="proc-name">Endolaser</h3>
+              </div>
+              <p class="proc-desc">
+                Tratamento a laser para gordura localizada
+              </p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/endolaser.jpg" alt="Endolaser" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">10</span>
+              <div class="proc-header">
+                <div class="proc-icon">
+                  <i class="fas fa-face-smile-beam"></i>
+                </div>
+                <h3 class="proc-name">Limpeza de Pele</h3>
+              </div>
+              <p class="proc-desc">Limpeza profunda e revitalização facial</p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/limpeza.jpg" alt="Limpeza de Pele" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="proc-card">
+          <div class="proc-card-inner">
+            <div class="proc-card-front">
+              <span class="proc-number">11</span>
+              <div class="proc-header">
+                <div class="proc-icon">
+                  <i class="fas fa-wand-magic-sparkles"></i>
+                </div>
+                <h3 class="proc-name">PEIM</h3>
+              </div>
+              <p class="proc-desc">
+                Tratamento estético injetável para microvasos
+              </p>
+            </div>
+            <div class="proc-card-back">
+              <img src="./imagens/peim.jpg" alt="PEIM" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria Section -->
+    <section class="galeria" id="galeria">
+      <h2 class="section-title">Resultados</h2>
+      <p class="section-subtitle">Antes & Depois</p>
+      <div class="galeria-slider">
+        <div class="galeria-track">
+          <div
+            class="galeria-item"
+            data-before="./imagens/labial0.jpg"
+            data-after="./imagens/labial1.jpg"
+          >
+            <img
+              class="galeria-img-before"
+              src="./imagens/labial0.jpg"
+              alt="Antes do procedimento 1"
+            />
+            <div class="galeria-img-after-container">
+              <img
+                class="galeria-img-after"
+                src="./imagens/labial1.jpg"
+                alt="Depois do procedimento 1"
+              />
+            </div>
+            <div class="galeria-caption">
+              Preenchimento Labial - Resultado natural
+            </div>
+          </div>
+          <div
+            class="galeria-item"
+            data-before="./imagens/lobuloplastia0.jpg"
+            data-after="./imagens/lobuloplastia1.jpg"
+          >
+            <img
+              class="galeria-img-before"
+              src="./imagens/lobuloplastia0.jpg"
+              alt="Antes do procedimento 2"
+            />
+            <div class="galeria-img-after-container">
+              <img
+                class="galeria-img-after"
+                src="./imagens/lobuloplastia1.jpg"
+                alt="Depois do procedimento 2"
+              />
+            </div>
+            <div class="galeria-caption">
+              Lobuloplastia Não Cirúrgica - Recupere a beleza das suas orelhas
+            </div>
+          </div>
+          <div
+            class="galeria-item"
+            data-before="./imagens/sinal0.jpg"
+            data-after="./imagens/sinal1.jpg"
+          >
+            <img
+              class="galeria-img-before"
+              src="./imagens/sinal0.jpg"
+              alt="Antes do procedimento 3"
+            />
+            <div class="galeria-img-after-container">
+              <img
+                class="galeria-img-after"
+                src="./imagens/sinal1.jpg"
+                alt="Depois do procedimento 3"
+              />
+            </div>
+            <div class="galeria-caption">
+              Remoção de Sinais com jato de plasma - Resultados visíveis
+            </div>
+          </div>
+          <div
+            class="galeria-item"
+            data-before="./imagens/capilar0.jpg"
+            data-after="./imagens/capilar1.jpg"
+          >
+            <img
+              class="galeria-img-before"
+              src="./imagens/capilar0.jpg"
+              alt="Antes do procedimento 3"
+            />
+            <div class="galeria-img-after-container">
+              <img
+                class="galeria-img-after"
+                src="./imagens/capilar1.jpg"
+                alt="Depois do procedimento 3"
+              />
+            </div>
+            <div class="galeria-caption">
+              Terapia Capilar - Renove os fios, renove sua confiança
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="galeria-nav">
+        <div class="galeria-dot active" data-slide="0"></div>
+        <div class="galeria-dot" data-slide="1"></div>
+        <div class="galeria-dot" data-slide="2"></div>
+        <div class="galeria-dot" data-slide="3"></div>
+      </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section class="contato" id="contato">
+      <h2 class="section-title">Agende Agora</h2>
+      <p class="section-subtitle">Sua transformação começa aqui</p>
+      <div class="contato-content">
+        <a
+          href="https://wa.me/5599992203333?text=Olá! Gostaria de marcar uma consulta e saber mais sobre os procedimentos."
+          class="whatsapp-btn"
+          target="_blank"
+        >
+          <span class="whatsapp-icon"><i class="fab fa-whatsapp"></i></span>
+          <span class="whatsapp-text">Chamar no WhatsApp</span>
+        </a>
+        <div class="info-box">
+          <div class="info-item">
+            <div class="info-label">Telefone</div>
+            <div>(99) 99220-3333</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Horário</div>
+            <div>Segunda a sábado: 9h às 18h</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Localização</div>
+            <div>
+              Rua coriolano Milhomem número 08, próximo a hemomar, Imperatriz-MA
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-signature">Meiriane Araújo</div>
+      <p class="footer-text">
+        Enfermeira Esteta • Transformando vidas através da beleza
+      </p>
+      <p style="margin-top: 20px; font-size: 12px; opacity: 0.7">
+        © 2025 Todos os direitos reservados a Sad Studios
+      </p>
+    </footer>
+  </body>
+  <script src="./script.js"></script>
+</html>
