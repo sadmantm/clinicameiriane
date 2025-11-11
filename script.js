@@ -146,11 +146,15 @@ function initSnakeStripe() {
     const scrolled = window.pageYOffset;
     const progress = getScrollProgress();
 
+    // Cache valores de dimensão
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+
     // Parâmetros da cobra
     const amplitude = 150;
     const frequency = 0.01;
     const pointSpacing = 1;
-    const maxSnakeHeight = window.innerHeight;
+    const maxSnakeHeight = viewportHeight;
     const currentSnakeHeight = progress * maxSnakeHeight;
 
     // Gerar pontos da cobra
@@ -162,7 +166,7 @@ function initSnakeStripe() {
       if (y > currentSnakeHeight) break;
 
       const zigzag = Math.sin(y * frequency) * amplitude;
-      const x = window.innerWidth / 2 + zigzag;
+      const x = viewportWidth / 2 + zigzag;
       points.push({ x, y });
     }
 
@@ -195,12 +199,14 @@ function initSnakeStripe() {
       snakePath.setAttribute("d", pathData);
     }
 
-    // Parallax no hero
+    // Parallax no hero - use transform apenas
     const heroContent = document.querySelector(".hero-content");
-    if (heroContent && scrolled < window.innerHeight) {
-      const heroProgress = Math.min(scrolled / window.innerHeight, 1);
-      heroContent.style.transform = `translateY(${heroProgress * 50}px)`;
-      heroContent.style.opacity = 1 - heroProgress * 0.7;
+    if (heroContent && scrolled < viewportHeight) {
+      const heroProgress = Math.min(scrolled / viewportHeight, 1);
+      const translateY = heroProgress * 50;
+      const opacity = 1 - heroProgress * 0.7;
+      heroContent.style.transform = `translateY(${translateY}px)`;
+      heroContent.style.opacity = opacity;
     }
 
     ticking = false;
@@ -300,9 +306,9 @@ function initGallery() {
   let startPos = 0;
   let currentTranslate = 0;
   let prevTranslate = 0;
-  let dragDistance = 0;
   let autoSlideInterval = null;
   let inactivityTimeout = null;
+  let hasDragged = false;
 
   // Funções auxiliares
   function getSliderWidth() {
@@ -315,7 +321,6 @@ function initGallery() {
 
   // Navegação de slides
   function goToSlide(index) {
-    // Remove o Math.max e Math.min para permitir loop infinito
     if (index >= items.length) {
       currentSlide = 0;
     } else if (index < 0) {
@@ -363,23 +368,31 @@ function initGallery() {
     }, CONFIG.gallery.inactivityTime);
   }
 
-  // Sistema de arraste
+  // Sistema de arraste - CORRIGIDO
   function handleDragStart(e) {
-    if (e.type === "mousedown") e.preventDefault();
-
     isDragging = true;
-    dragDistance = 0;
+    hasDragged = false;
     startPos = getPointerX(e);
     track.style.transition = "none";
     slider.classList.add("grabbing");
-    handleUserInteraction();
+
+    // Prevenir comportamento padrão apenas para touch
+    if (e.type === "touchstart") {
+      e.preventDefault();
+    }
   }
 
   function handleDragMove(e) {
     if (!isDragging) return;
 
     const currentPosition = getPointerX(e);
-    dragDistance = currentPosition - startPos;
+    const dragDistance = currentPosition - startPos;
+
+    // Marcar que houve arraste se moveu mais de 10px
+    if (Math.abs(dragDistance) > 10) {
+      hasDragged = true;
+    }
+
     currentTranslate = prevTranslate + dragDistance;
 
     const maxTranslate = 0;
@@ -391,7 +404,8 @@ function initGallery() {
 
     track.style.transform = `translateX(${currentTranslate}px)`;
 
-    if (Math.abs(dragDistance) > 10) {
+    // Só previne default se realmente arrastou
+    if (hasDragged) {
       e.preventDefault();
       handleUserInteraction();
     }
@@ -403,33 +417,112 @@ function initGallery() {
     isDragging = false;
     slider.classList.remove("grabbing");
 
-    const movedBy = dragDistance;
+    const movedBy = currentTranslate - prevTranslate;
     const threshold = CONFIG.gallery.dragThreshold;
 
-    if (Math.abs(movedBy) > threshold) {
+    // Só muda de slide se realmente arrastou
+    if (hasDragged && Math.abs(movedBy) > threshold) {
       if (movedBy < 0) {
-        // Arrasta para esquerda - próximo slide (com loop)
         currentSlide = (currentSlide + 1) % items.length;
       } else if (movedBy > 0) {
-        // Arrasta para direita - slide anterior (com loop)
         currentSlide = (currentSlide - 1 + items.length) % items.length;
       }
     }
 
     goToSlide(currentSlide);
     handleUserInteraction();
+
+    // Resetar flag após um breve delay
+    setTimeout(() => {
+      hasDragged = false;
+    }, 100);
   }
 
-  // Event listeners - Mouse
+  // Event listeners - CORRIGIDOS
   slider.addEventListener("mousedown", handleDragStart);
-  slider.addEventListener("mousemove", handleDragMove);
-  slider.addEventListener("mouseup", handleDragEnd);
-  slider.addEventListener("mouseleave", handleDragEnd);
+  slider.addEventListener("touchstart", handleDragStart, { passive: false });
 
-  // Event listeners - Touch
-  slider.addEventListener("touchstart", handleDragStart, { passive: true });
-  slider.addEventListener("touchmove", handleDragMove, { passive: false });
-  slider.addEventListener("touchend", handleDragEnd);
+  document.addEventListener("mousemove", handleDragMove);
+  document.addEventListener("touchmove", handleDragMove, { passive: false });
+
+  document.addEventListener("mouseup", handleDragEnd);
+  document.addEventListener("touchend", handleDragEnd);
+
+  // Sistema de revelação por clique - CORRIGIDO
+  items.forEach((item) => {
+    let clickStartTime = 0;
+    let clickStartPos = { x: 0, y: 0 };
+
+    function handleClickStart(e) {
+      clickStartTime = Date.now();
+      const clientX = e.type.includes("mouse")
+        ? e.clientX
+        : e.touches[0].clientX;
+      const clientY = e.type.includes("mouse")
+        ? e.clientY
+        : e.touches[0].clientY;
+      clickStartPos = { x: clientX, y: clientY };
+    }
+
+    function handleClickEnd(e) {
+      const clickDuration = Date.now() - clickStartTime;
+      const clientX = e.type.includes("mouse")
+        ? e.clientX
+        : e.changedTouches[0].clientX;
+      const clientY = e.type.includes("mouse")
+        ? e.clientY
+        : e.changedTouches[0].clientY;
+
+      const distance = Math.sqrt(
+        Math.pow(clientX - clickStartPos.x, 2) +
+          Math.pow(clientY - clickStartPos.y, 2)
+      );
+
+      // Verifica se NÃO houve arraste e foi um clique rápido
+      if (!hasDragged && clickDuration < 300 && distance < 15) {
+        e.preventDefault();
+        e.stopPropagation();
+        revealImage(e, item);
+        handleUserInteraction();
+      }
+    }
+
+    // Event listeners para clique
+    item.addEventListener("mousedown", handleClickStart);
+    item.addEventListener("mouseup", handleClickEnd);
+    item.addEventListener("touchstart", handleClickStart, { passive: true });
+    item.addEventListener("touchend", handleClickEnd);
+  });
+
+  function revealImage(e, item) {
+    const rect = item.getBoundingClientRect();
+    const clientX = e.type.includes("mouse")
+      ? e.clientX
+      : e.changedTouches[0].clientX;
+    const clientY = e.type.includes("mouse")
+      ? e.clientY
+      : e.changedTouches[0].clientY;
+
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+
+    const afterContainer = item.querySelector(".galeria-img-after-container");
+    const isRevealed = afterContainer.classList.contains("revealed");
+
+    item.style.setProperty("--click-x", `${x}%`);
+    item.style.setProperty("--click-y", `${y}%`);
+
+    item.classList.add("clicking");
+    setTimeout(() => item.classList.remove("clicking"), 800);
+
+    if (isRevealed) {
+      afterContainer.classList.remove("revealed");
+      setTimeout(() => afterContainer.classList.remove("revealing"), 800);
+    } else {
+      afterContainer.classList.add("revealing");
+      setTimeout(() => afterContainer.classList.add("revealed"), 10);
+    }
+  }
 
   // Dots
   dots.forEach((dot) => {
@@ -440,9 +533,6 @@ function initGallery() {
       handleUserInteraction();
     });
   });
-
-  // Sistema de revelação circular
-  initRevealSystem(items, handleUserInteraction);
 
   // Hover (apenas desktop)
   if (window.matchMedia("(hover: hover)").matches) {
@@ -462,25 +552,24 @@ function initGallery() {
 }
 
 // Sistema de revelação circular por clique/tap
-function initRevealSystem(items, onInteraction) {
+function initRevealSystem(items, onInteraction, getDragStatus) {
   items.forEach((item) => {
-    let tapStartTime = 0;
-    let tapStartPos = { x: 0, y: 0 };
-    let dragDistance = 0;
+    let clickStartTime = 0;
+    let clickStartPos = { x: 0, y: 0 };
 
-    function handleTapStart(e) {
-      tapStartTime = Date.now();
+    function handleClickStart(e) {
+      clickStartTime = Date.now();
       const clientX = e.type.includes("mouse")
         ? e.clientX
         : e.touches[0].clientX;
       const clientY = e.type.includes("mouse")
         ? e.clientY
         : e.touches[0].clientY;
-      tapStartPos = { x: clientX, y: clientY };
+      clickStartPos = { x: clientX, y: clientY };
     }
 
-    function handleTapEnd(e) {
-      const tapDuration = Date.now() - tapStartTime;
+    function handleClickEnd(e) {
+      const clickDuration = Date.now() - clickStartTime;
       const clientX = e.type.includes("mouse")
         ? e.clientX
         : e.changedTouches[0].clientX;
@@ -489,22 +578,29 @@ function initRevealSystem(items, onInteraction) {
         : e.changedTouches[0].clientY;
 
       const distance = Math.sqrt(
-        Math.pow(clientX - tapStartPos.x, 2) +
-          Math.pow(clientY - tapStartPos.y, 2)
+        Math.pow(clientX - clickStartPos.x, 2) +
+          Math.pow(clientY - clickStartPos.y, 2)
       );
 
-      // Considera como tap se foi rápido e não moveu muito
-      if (tapDuration < 300 && distance < 10 && Math.abs(dragDistance) < 10) {
+      // Verifica se NÃO houve arraste e foi um clique rápido
+      const hasDragged = getDragStatus();
+
+      if (!hasDragged && clickDuration < 300 && distance < 10) {
         e.preventDefault();
+        e.stopPropagation();
         revealImage(e, item);
         onInteraction();
       }
     }
 
-    item.addEventListener("mousedown", handleTapStart);
-    item.addEventListener("mouseup", handleTapEnd);
-    item.addEventListener("touchstart", handleTapStart, { passive: true });
-    item.addEventListener("touchend", handleTapEnd);
+    // Event listeners específicos para cada item
+    item.addEventListener("mousedown", handleClickStart, true);
+    item.addEventListener("mouseup", handleClickEnd, true);
+    item.addEventListener("touchstart", handleClickStart, {
+      passive: true,
+      capture: true,
+    });
+    item.addEventListener("touchend", handleClickEnd, { capture: true });
   });
 
   function revealImage(e, item) {
