@@ -1,15 +1,17 @@
 @font-face {
   font-family: "Phillips Muler";
   src: url("./fonts/Angelface.otf") format("opentype");
+  font-display: swap;
 }
 @font-face {
   font-family: "Code Pro Black";
   src: url("./fonts/mundo-sans-std-medium.otf") format("opentype");
+  font-display: swap;
 }
-
 @font-face {
   font-family: "Paul Slab";
   src: url("./fonts/paul-slab-semi-bold.otf") format("opentype");
+  font-display: swap;
 }
 
 * {
@@ -45,6 +47,8 @@ body {
   background: url("./imagens/BG1.png") center/cover no-repeat;
   opacity: 0.15;
   animation: bgChange 16s ease-in-out infinite alternate;
+  will-change: background-image;
+  content-visibility: auto;
 }
 
 /* Animação alternando entre BG1 e BG2 */
@@ -553,7 +557,6 @@ body {
   background: rgba(20, 32, 66, 0.98);
   position: relative;
   overflow: hidden;
-  z-index: 10;
 }
 
 .galeria::before {
@@ -569,7 +572,6 @@ body {
     transparent 70%
   );
   animation: rotate 30s linear infinite;
-  z-index: 1; /* Dentro da própria section */
 }
 
 @keyframes rotate {
